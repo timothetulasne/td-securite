@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/auth/auth-guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'comptes' },
@@ -13,11 +14,13 @@ export const routes: Routes = [
     path: 'comptes',
     loadComponent: () => import('./features/comptes/liste-comptes').then((m) => m.ListeComptes),
     title: 'Banque · comptes',
+    canActivate: [authGuard],
   },
   {
     path: 'comptes/:id',
     loadComponent: () => import('./features/comptes/detail-compte').then((m) => m.DetailCompte),
     title: 'Banque · compte',
+    canActivate: [authGuard],
   },
   { path: '**', redirectTo: 'comptes' },
 ];
